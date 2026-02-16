@@ -39,6 +39,43 @@ activities = {
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
     }
+,
+    "Basketball": {
+        "description": "Team basketball games and practice drills",
+        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": ["james@mergington.edu"]
+    },
+    "Tennis Club": {
+        "description": "Tennis coaching and friendly matches",
+        "schedule": "Saturdays, 10:00 AM - 12:00 PM",
+        "max_participants": 10,
+        "participants": ["sarah@mergington.edu"]
+    },
+    "Art Studio": {
+        "description": "Painting, drawing, and sculpture techniques",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 16,
+        "participants": ["maya@mergington.edu", "liam@mergington.edu"]
+    },
+    "Music Band": {
+        "description": "Learn instruments and perform in concerts",
+        "schedule": "Tuesdays and Thursdays, 4:30 PM - 5:30 PM",
+        "max_participants": 25,
+        "participants": ["lucas@mergington.edu"]
+    },
+    "Debate Team": {
+        "description": "Develop public speaking and argumentation skills",
+        "schedule": "Mondays and Fridays, 3:30 PM - 4:30 PM",
+        "max_participants": 14,
+        "participants": ["alex@mergington.edu", "jordan@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "Explore physics, chemistry, and biology through experiments",
+        "schedule": "Thursdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": ["aisha@mergington.edu"]
+    }
 }
 
 
@@ -61,6 +98,10 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Get the specific activity
     activity = activities[activity_name]
+
+    # Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail=f"Student {email} is already signed up for {activity_name}")
 
     # Add student
     activity["participants"].append(email)
